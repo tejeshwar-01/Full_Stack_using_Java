@@ -1,0 +1,176 @@
+# Student Registration System (Full Stack)
+
+This project implements a simple **Student Registration System** using:
+
+- Frontend: HTML5, CSS3, JavaScript  
+- Backend: Node.js with Express  
+- Database: MySQL  
+- API Style: REST (JSON)
+
+The application allows users to **register students** and **retrieve registered student data**.
+
+---
+
+## 📁 Project Structure
+
+
+---
+
+## ⚙️ Prerequisites
+
+Make sure the following are installed:
+
+- Node.js (v18+ recommended)
+- MySQL Server
+- MySQL Command Line Client
+- Any code editor (VS Code preferred)
+
+---
+
+## 🗄️ Database Setup (MySQL)
+
+### 1️⃣ Open **MySQL Command Line Client**
+You should see:
+mysql>
+
+
+### 2️⃣ Create database
+```sql
+CREATE DATABASE college;
+USE college;
+
+3️⃣ Create students table
+CREATE TABLE students (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  email VARCHAR(150) NOT NULL UNIQUE,
+  dob DATE NOT NULL,
+  department VARCHAR(50) NOT NULL,
+  phone VARCHAR(15) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+📥 Sample Data Insertion
+INSERT INTO students (name, email, dob, department, phone) VALUES
+('Arjun Reddy', 'arjun.reddy@gmail.com', '2001-08-15', 'CSE', '9876543210'),
+('Sneha Sharma', 'sneha.sharma@gmail.com', '2002-03-22', 'ECE', '9123456780'),
+('Rahul Verma', 'rahul.verma@gmail.com', '2001-11-05', 'ME', '9988776655');
+
+
+Verify:
+
+SELECT * FROM students;
+
+🚀 Backend Setup (Node.js + Express)
+1️⃣ Install dependencies
+npm install
+
+2️⃣ Configure database connection (db.js)
+const mysql = require("mysql2");
+
+const db = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "",       // Add your MySQL password if any
+  database: "college"
+});
+
+db.connect(err => {
+  if (err) {
+    console.error("Database connection failed:", err.message);
+    return;
+  }
+  console.log("Database connected");
+});
+
+module.exports = db;
+
+▶️ Run the Server
+node server.js
+
+Expected output:
+Database connected
+Server running on http://localhost:3000
+
+🔗 API Endpoints
+➕ Register Student
+
+POST /students
+
+Request Body (JSON):
+
+{
+  "name": "Kiran Kumar",
+  "email": "kiran@gmail.com",
+  "dob": "2001-01-30",
+  "department": "CSE",
+  "phone": "9012345678"
+}
+
+📄 Get All Students
+
+GET /students
+
+URL:
+
+http://localhost:3000/students
+
+
+Response Example:
+
+[
+  {
+    "id": 1,
+    "name": "Arjun Reddy",
+    "email": "arjun.reddy@gmail.com",
+    "dob": "2001-08-15",
+    "department": "CSE",
+    "phone": "9876543210"
+  }
+]
+
+🔐 Validation & Security
+
+Server-side validation for required fields
+
+Email uniqueness enforced by database
+
+Prepared statements prevent SQL Injection
+
+DOB validation (not future date)
+
+No authentication (passwordless) – can be added later
+
+🧪 Testing
+
+Browser: http://localhost:3000/students
+
+Postman: Test POST & GET APIs
+
+MySQL CLI: Verify inserted records
+
+🔮 Future Enhancements
+
+Frontend UI (HTML/CSS/JS or React)
+
+Update & Delete APIs
+
+Authentication (JWT)
+
+Pagination & search
+
+Input sanitization library
+
+👨‍💻 Author
+
+Student Registration System
+Full Stack Task – Node.js & MySQL
+
+✅ Status
+
+✔ Backend Working
+✔ Database Connected
+✔ APIs Tested
+
+
+---
